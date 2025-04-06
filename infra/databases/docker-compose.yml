@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  user_db: 
+    image: postgres:14-alpine
+    container_name: user_db
+    ports:
+      - "5433:5432"  
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres123
+      - POSTGRES_DB=streaming_users  
+    volumes:
+      - user_db_data:/var/lib/postgresql/data
+
+  video_db: 
+    image: postgres:14-alpine
+    container_name: video_db
+    ports:
+      - "5434:5432"  
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres123
+      - POSTGRES_DB=video_db  
+    volumes:
+      - video_db_data:/var/lib/postgresql/data
+      
+  minio:
+    image: minio/minio:latest
+    container_name: minio_storage
+    restart: always
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin123
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+
+volumes:
+  user_db_data:
+  video_db_data:
+  minio_data:
