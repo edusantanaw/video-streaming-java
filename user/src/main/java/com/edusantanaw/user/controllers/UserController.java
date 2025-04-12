@@ -1,11 +1,9 @@
 package com.edusantanaw.user.controllers;
 
 import com.edusantanaw.user.controllers.dtos.CreateUserDTO;
-import com.edusantanaw.user.controllers.dtos.CreateUserResponse;
-import com.edusantanaw.user.infra.entities.UserEntity;
+import com.edusantanaw.user.domain.dto.NewUserResponseDTO;
 import com.edusantanaw.user.services.CreateUserService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,9 +22,8 @@ public class UserController {
     }
 
     @PostMapping()
-    public ResponseEntity<CreateUserResponse> create(@RequestBody @Valid CreateUserDTO data) throws Exception {
-        UserEntity user = this.createUserService.create(data);
-        CreateUserResponse createUserResponse = new CreateUserResponse(user.getId(), user.getName(), user.getEmail());
-        return ResponseEntity.status(HttpStatus.CREATED).body(createUserResponse);
+    public ResponseEntity<NewUserResponseDTO> create(@RequestBody @Valid CreateUserDTO data) throws Exception {
+        NewUserResponseDTO user = this.createUserService.create(data);
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 }
