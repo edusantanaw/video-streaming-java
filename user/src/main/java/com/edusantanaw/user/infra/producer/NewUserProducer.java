@@ -1,7 +1,6 @@
 package com.edusantanaw.user.infra.producer;
 
-import com.edusantanaw.user.domain.dto.NewUserResponseDTO;
-import com.edusantanaw.user.infra.entities.UserEntity;
+import com.edusantanaw.user.domain.dto.UserResponseDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -17,7 +16,7 @@ public class NewUserProducer {
         this.objectMapper = new ObjectMapper();
     }
 
-    public void exec(NewUserResponseDTO user) throws JsonProcessingException {
+    public void exec(UserResponseDTO user) throws JsonProcessingException {
             amqpTemplate.convertAndSend(
                     "new-user-exchange",
                     "new-user-route-key",

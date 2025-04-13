@@ -9,15 +9,19 @@ import java.util.UUID;
 public class UserEntity {
     @Id()
     @GeneratedValue(strategy = GenerationType.UUID)
-    UUID id;
+    protected UUID id;
     @Column(nullable = false)
-    String name;
+    protected String name;
     @Column(unique = true)
-    String email;
+    protected  String email;
     @Column(nullable = false)
-    String password;
+    protected  String password;
 
-    public UserEntity(){}
+    public UserEntity() {
+    }
+
+    public UserEntity(String name, String email) {
+    }
 
     public UserEntity(String name, String email, String password) {
         this.name = name;

@@ -1,24 +1,25 @@
 server:
-    port: 3010
+  port: 3010
+
+jwt:
+  secret: "66546A576E5A7234753778214125442A472D4B614E645267556B587032733576"
 
 spring:
-    application:
-        name: user
-    datasource:
-        url: jdbc:postgresql://localhost:5433/streaming_users?createDatabaseIfNotExist=true
-        username: postgres
-        password: postgres123
-    jpa:
-        properties:
-            hibernate:
-                dialect: org.hibernate.dialect.PostgreSQLDialect
-        hibernate:
-            ddl-auto: update
-        show-sql: true
-    rabbitmq:
-        host: localhost
-        port: 5672
-        username: admin
-        password: admin
-    jwt:
-        secret: secret
+  application:
+    name: user
+  datasource:
+    url: jdbc:postgresql://localhost:5433/streaming_users?createDatabaseIfNotExist=true
+    username: postgres
+    password: postgres123
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: admin

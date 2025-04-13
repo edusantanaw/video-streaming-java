@@ -1,11 +1,12 @@
 package com.edusantanaw.user.services;
 
+import com.edusantanaw.user.config.security.UserDetailsImpl;
 import com.edusantanaw.user.controllers.dtos.AuthDTO;
 import com.edusantanaw.user.domain.dto.AuthResponseDTO;
 import com.edusantanaw.user.domain.exceptions.DomainValidation;
 import com.edusantanaw.user.infra.entities.UserEntity;
 import com.edusantanaw.user.infra.repository.UserRepository;
-import com.edusantanaw.user.infra.utils.JWTService;
+import com.edusantanaw.user.config.security.JWTService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,8 @@ public class AuthService {
         UserEntity user = userExists.get();
         boolean passwordIsValid = this.passwordEncoder.matches(data.password, user.getPassword());
         if (!passwordIsValid) throw new DomainValidation("E-mail or password is invalid!");
-        String token = this.jwtService.generate(user.getEmail());
+        UserDetailsImpl userDetails = new UserDetailsImpl(user.getName(), user.getEmail());
+        String token = this.jwtService.generate(userDetails);
         return new AuthResponseDTO(token);
     }
 
