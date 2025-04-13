@@ -13,10 +13,10 @@ public class JWTService {
     protected String secret;
 
     JWTService() {
-        System.out.println(secret);
     }
 
     public String generate(String data) {
+        System.out.println(secret);
         return Jwts.builder()
                 .setSubject(data)
                 .setIssuedAt(new Date())
